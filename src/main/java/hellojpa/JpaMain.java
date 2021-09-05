@@ -18,11 +18,15 @@ public class JpaMain {
             team.setName("TeamA");
             em.persist(team);
             //회원 저장
-            Member member = new Member();
-            member.setUsername("member1");
-            em.persist(member);
+            Member member1 = new Member();
+            Member member2 = new Member();
+            member1.setUsername("member1");
+            member2.setUsername("member2");
+            em.persist(member1);
+            em.persist(member2);
 
-            team.getMembers().add(member);
+            team.getMembers().add(member1);
+            team.getMembers().add(member2);
 
 
 //            System.out.println("FLUSH, CLEAR");

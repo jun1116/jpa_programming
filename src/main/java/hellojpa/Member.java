@@ -4,15 +4,20 @@ import javax.persistence.*;
 
 @Entity
 public class Member {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue
     private Long id; //PK를 매핑한것
     //객체에선 username을 쓰고싶은데, DB의 Column엔 name이라는 컬럼을 쓰고싶을때
 
     @Column(name = "USERNAME")
     private String username;
 
+    @OneToOne
+    @JoinColumn(name="LOCKER_ID")//안잡아도 디폴트가 잡히긴 하지만 깔끔하게!
+    private Locker locker;
 
+    @ManyToOne
+    @JoinColumn(name="TEAM_ID",insertable = false, updatable = false)
+    private Team team;
 //    @ManyToOne(fetch = FetchType.LAZY)//팀쿼리는 늦게나가! 중요중요
 //    @JoinColumn(name = "TEAM_ID")//DB에 직접 이 값이 있어야해
 //    private Team team;
