@@ -10,9 +10,9 @@ public class Member {
     @Column(name="MEMBER_ID")
     private Long id; //PK를 매핑한것
     //객체에선 username을 쓰고싶은데, DB의 Column엔 name이라는 컬럼을 쓰고싶을때
-    @ManyToMany
-    @JoinTable(name="MEMBER_PRODUCT")
-    private List<Product> products = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<MemberProduct> memberProducts = new ArrayList<>();
 
     @Column(name = "USERNAME")
     private String username;
