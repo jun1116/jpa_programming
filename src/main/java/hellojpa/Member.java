@@ -1,6 +1,8 @@
 package hellojpa;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Member {
@@ -8,6 +10,9 @@ public class Member {
     @Column(name="MEMBER_ID")
     private Long id; //PK를 매핑한것
     //객체에선 username을 쓰고싶은데, DB의 Column엔 name이라는 컬럼을 쓰고싶을때
+    @ManyToMany
+    @JoinTable(name="MEMBER_PRODUCT")
+    private List<Product> products = new ArrayList<>();
 
     @Column(name = "USERNAME")
     private String username;
@@ -20,6 +25,7 @@ public class Member {
     @ManyToOne
     @JoinColumn(name="TEAM_ID",insertable = false, updatable = false)
     private Team team;
+
 //    @ManyToOne(fetch = FetchType.LAZY)//팀쿼리는 늦게나가! 중요중요
 //    @JoinColumn(name = "TEAM_ID")//DB에 직접 이 값이 있어야해
 //    private Team team;
