@@ -5,6 +5,7 @@ import javax.persistence.*;
 @Entity
 public class Member {
     @Id @GeneratedValue
+    @Column(name="MEMBER_ID")
     private Long id; //PK를 매핑한것
     //객체에선 username을 쓰고싶은데, DB의 Column엔 name이라는 컬럼을 쓰고싶을때
 
@@ -14,6 +15,7 @@ public class Member {
     @OneToOne
     @JoinColumn(name="LOCKER_ID")//안잡아도 디폴트가 잡히긴 하지만 깔끔하게!
     private Locker locker;
+
 
     @ManyToOne
     @JoinColumn(name="TEAM_ID",insertable = false, updatable = false)
@@ -40,6 +42,8 @@ public class Member {
 //        return team;
 //    }
 
+    public Member() {}
+
     public Long getId() {
         return id;
     }
@@ -56,4 +60,11 @@ public class Member {
         this.username = username;
     }
 
+    public Locker getLocker() {
+        return locker;
+    }
+
+    public void setLocker(Locker locker) {
+        this.locker = locker;
+    }
 }
