@@ -27,11 +27,15 @@ public class JpaMain {
             System.out.println("\n------------------------- FLUSH, CLEAR\n");
             System.out.println("\n------------------------- NEW START\n");
             Member refMember = em.getReference(Member.class, member1.getId());
-            System.out.println("\nrefmember.getClass() = " + refMember.getClass());//프록시가나와
 
-            Member findMember = em.find(Member.class, member1.getId());
-            System.out.println("\nfindMember.getClass() = " + findMember.getClass());//객체가나올거라 예상해
-            System.out.println("(refMember==findMember) = " + (refMember==findMember));
+            System.out.println("\nemf.getPersistenceUnitUtil().isLoaded(refMember) = " + emf.getPersistenceUnitUtil().isLoaded(refMember));
+            System.out.println("\nrefMember.getUsername()를 호출해서 초기화하기! = " + refMember.getUsername());
+            System.out.println("\nemf.getPersistenceUnitUtil().isLoaded(refMember) = " + emf.getPersistenceUnitUtil().isLoaded(refMember));
+
+            System.out.println("\n-------------------------END------------------");
+//            Member findMember = em.find(Member.class, member1.getId());
+//            System.out.println("\nfindMember.getClass() = " + findMember.getClass());//객체가나올거라 예상해
+//            System.out.println("(refMember==findMember) = " + (refMember==findMember));
 
             tx.commit();
         } catch (Exception e) {
