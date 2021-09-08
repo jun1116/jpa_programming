@@ -14,23 +14,32 @@ public class JpaMain {
 
         try {
             //팀 저장
-            Member member = new Member();
-            member.setUsername("member1");
+            Member member1 = new Member();
+            member1.setUsername("member1");
+            em.persist(member1);
 
-            em.persist(member);
+            Member member2 = new Member();
+            member2.setUsername("member2");
+            em.persist(member2);
 
             em.flush();
             em.clear();
 
-            System.out.println("\n------------------------- FLUSH, CLEAR");
-            System.out.println("\n------------------------- NEW START");
-//            em.close();
-            Member refMember = em.getReference(Member.class, member.getId());
-            System.out.println("\ngetReference 실행완료");
-            System.out.println("\n\nrefMember.getUsername() = " + refMember.getUsername());
+            System.out.println("\n------------------------- FLUSH, CLEAR\n");
+            System.out.println("\n------------------------- NEW START\n");
+            Member m1 = em.find(Member.class, member1.getId());
+            Member m2 = em.getReference(Member.class, member2.getId());
+            System.out.println("\nm1 InstanceOf : "+(m1 instanceof Member));
+            System.out.println("\nm2 InstanceOf : "+(m2 instanceof Member));
+            System.out.println("\n m1 == m2 "+(m1 == m2));
 
-            System.out.println(member==refMember);
-            System.out.println(member==refMember);
+//            em.close();
+//            Member refMember = em.getReference(Member.class, member1.getId());
+//            System.out.println("\ngetReference 실행완료");
+//            System.out.println("\n\nrefMember.getUsername() = " + refMember.getUsername());
+
+//            System.out.println(member==refMember);
+//            System.out.println(member==refMember);
             tx.commit();
 
         } catch (Exception e) {
