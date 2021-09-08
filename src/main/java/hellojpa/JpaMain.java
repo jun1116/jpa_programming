@@ -27,10 +27,9 @@ public class JpaMain {
             System.out.println("\n------------------------- FLUSH, CLEAR\n");
             System.out.println("\n------------------------- NEW START\n");
             Member refMember = em.getReference(Member.class, member1.getId());
-
-            System.out.println("\nemf.getPersistenceUnitUtil().isLoaded(refMember) = " + emf.getPersistenceUnitUtil().isLoaded(refMember));
-            System.out.println("\nrefMember.getUsername()를 호출해서 초기화하기! = " + refMember.getUsername());
-            System.out.println("\nemf.getPersistenceUnitUtil().isLoaded(refMember) = " + emf.getPersistenceUnitUtil().isLoaded(refMember));
+            System.out.println(" 강제초기화 " );
+            org.hibernate.Hibernate.initialize(refMember);
+            System.out.println(" 강제초기화 쿼리 날아갔는가? ");
 
             System.out.println("\n-------------------------END------------------");
 //            Member findMember = em.find(Member.class, member1.getId());
