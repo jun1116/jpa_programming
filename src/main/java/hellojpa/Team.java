@@ -15,7 +15,7 @@ public class Team {
 
     @OneToMany
     @JoinColumn(name = "TEAM_ID") // One To Many 로 쓰려고!
-    List<Member> members = new ArrayList<Member>();
+    List<Member> members = new ArrayList<>();
 
 
 

@@ -14,32 +14,43 @@ public class JpaMain {
 
         try {
             //팀 저장
-//            Team team = new Team();
-//            team.setName("TeamA");
-//            em.persist(team);
-//            //회원 저장
-//            Member member1 = new Member();
-//            Member member2 = new Member();
-//            member1.setUsername("member1");
-//            member2.setUsername("member2");
-//            em.persist(member1);
-//            em.persist(member2);
-//
-//            team.getMembers().add(member1);
-//            team.getMembers().add(member2);
+            Member member = new Member();
+            member.setUsername("member1");
 
+            em.persist(member);
 
-//            System.out.println("FLUSH, CLEAR");
-//            System.out.println("NEW START");
-            //멤버 조회
+            em.flush();
+            em.clear();
+
+            System.out.println("\n------------------------- FLUSH, CLEAR");
+            System.out.println("\n------------------------- NEW START");
+//            em.close();
+            Member refMember = em.getReference(Member.class, member.getId());
+            System.out.println("\ngetReference 실행완료");
+            System.out.println("\n\nrefMember.getUsername() = " + refMember.getUsername());
+
+            System.out.println(member==refMember);
+            System.out.println(member==refMember);
+            tx.commit();
 
         } catch (Exception e) {
             tx.rollback();
         }finally {
-            System.out.println("---------------------COMMIT------------------");
-            tx.commit();
+            System.out.println("\n\n---------------------COMMIT------------------");
             em.close();
+            emf.close();
+            return;
         }
-        emf.close();
+    }
+    public void printUserNTeam(String memberId,EntityManager em){
+        Member member = em.find(Member.class, memberId);
+        Team team = member.getTeam();
+        System.out.println("team.getName() = " + team.getName());
+        System.out.println("member = " + member.getUsername());
+    }
+    public void printUser(String memberId, EntityManager em){
+        Member member = em.find(Member.class, memberId);
+        Team team = member.getTeam();
+        System.out.println("team.getName() = " + team.getName());
     }
 }
