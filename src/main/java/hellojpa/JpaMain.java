@@ -28,10 +28,9 @@ public class JpaMain {
             System.out.println("\n------------------------- NEW START\n");
             Member refMember = em.getReference(Member.class, member1.getId());
             System.out.println("\nrefmember.getClass() = " + refMember.getClass());//프록시가나와
-            
+
             Member findMember = em.find(Member.class, member1.getId());
             System.out.println("\nfindMember.getClass() = " + findMember.getClass());//객체가나올거라 예상해
-
             System.out.println("(refMember==findMember) = " + (refMember==findMember));
 
             tx.commit();
