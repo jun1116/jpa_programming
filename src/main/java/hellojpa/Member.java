@@ -21,7 +21,7 @@ public class Member {
     private Locker locker;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="TEAM_ID",insertable = false, updatable = false)
     private Team team;
 
