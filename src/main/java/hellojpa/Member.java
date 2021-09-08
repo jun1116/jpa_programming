@@ -21,7 +21,7 @@ public class Member {
     private Locker locker;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="TEAM_ID",insertable = false, updatable = false)
     private Team team;
 
@@ -31,6 +31,7 @@ public class Member {
 
     public void setTeam(Team team) {
         this.team = team;
+        team.getMembers().add(this);//편의메소드
     }
     public Member() {}
 

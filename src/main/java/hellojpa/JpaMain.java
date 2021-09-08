@@ -13,9 +13,17 @@ public class JpaMain {
         tx.begin();
 
         try {
+            Team team = new Team();
+            team.setName("team1");
+
+            em.persist(team);
+
             Member member1 = new Member();
             member1.setUsername("member1");
+            member1.setTeam(team);
             em.persist(member1);
+
+
 //
 //            Member member2 = new Member();
 //            member2.setUsername("member2");
@@ -23,14 +31,13 @@ public class JpaMain {
 
             em.flush();
             em.clear();
-
-            System.out.println("\n------------------------- FLUSH, CLEAR\n");
-            System.out.println("\n------------------------- NEW START\n");
-            Member refMember = em.getReference(Member.class, member1.getId());
-            System.out.println(" 강제초기화 " );
-            org.hibernate.Hibernate.initialize(refMember);
-            System.out.println(" 강제초기화 쿼리 날아갔는가? ");
-
+            System.out.println("\n FLUSH CLEAR\n");
+            System.out.println("em.find(member)");
+            Member findMember = em.find(Member.class, member1.getId());
+//            System.out.println("findM");
+            System.out.println("findMember.getTeam().getClass() = " + findMember.getTeam().getClass());
+            System.out.println("\n");
+            System.out.println("findMember.getTeam().getName() = " + findMember.getTeam().getName());
             System.out.println("\n-------------------------END------------------");
 //            Member findMember = em.find(Member.class, member1.getId());
 //            System.out.println("\nfindMember.getClass() = " + findMember.getClass());//객체가나올거라 예상해
