@@ -24,7 +24,6 @@ public class JpaMain {
             em.persist(team1);
             em.persist(team2);
             em.persist(team3);
-
             Member member1 = new Member();
             member1.setUsername("member1");
             member1.setTeam(team1);
@@ -35,7 +34,7 @@ public class JpaMain {
             em.persist(member2);
 
             em.flush();em.clear();
-            List<Member> members = em.createQuery("select m from Member m", Member.class).getResultList();
+            List<Member> members = em.createQuery("select m from Member m join fetch m.team", Member.class).getResultList();
             //select * from member
             //select * from team where team.id = member11.teamid~~
             System.out.println("members = " + members);
@@ -50,15 +49,14 @@ public class JpaMain {
             return;
         }
     }
-    public void printUserNTeam(String memberId,EntityManager em){
-        Member member = em.find(Member.class, memberId);
-        Team team = member.getTeam();
-        System.out.println("team.getName() = " + team.getName());
-        System.out.println("member = " + member.getUsername());
-    }
-    public void printUser(String memberId, EntityManager em){
-        Member member = em.find(Member.class, memberId);
-        Team team = member.getTeam();
-        System.out.println("team.getName() = " + team.getName());
+
+    private static void saveNoCascade(EntityManager em) {
+        Team team = new Team();
+        em.persist(team);
+
+        Member member1 = new Member();
+        Member member2 = new Member();
+        member1.setTeam(team);
+        member2.setTeam(team);
     }
 }

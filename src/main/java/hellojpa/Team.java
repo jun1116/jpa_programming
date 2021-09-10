@@ -13,7 +13,7 @@ public class Team {
     @Column(name = "NAME")
     private String name;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "TEAM_ID") // One To Many 로 쓰려고!
     List<Member> members = new ArrayList<>();
 
