@@ -15,10 +15,17 @@ public class testMain {
         try {
             Member2 member = new Member2();
             member.setName("KIM");
-            member.setCompanyAddress(new Address("Seoul","광화문로",33333));
-            member.setHomeAddress(new Address("부천시","중동로",33333));
+            Address address = new Address("부천시", "중동로", 33333);
+            member.setHomeAddress(address);
             member.setWorkPeriod(new Period());
             em.persist(member);
+
+//            address.setCity("수원시");
+//            address.setStreet("월드컵로");
+            Member2 member2 = new Member2();
+            member2.setHomeAddress(new Address("수원시", "월드컵로", address.getZipcode()));
+            em.persist(member2);
+
 
             tx.commit();
         } catch (Exception e) {
