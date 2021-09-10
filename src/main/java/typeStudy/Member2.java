@@ -25,7 +25,7 @@ public class Member2 {
     private Set<String> favoriteFoods = new HashSet<>();
 
     @ElementCollection
-    @CollectionTable(name="ADDRESS", joinColumns = @JoinColumn(name="MEMBER2_ID"))
+    @CollectionTable(name="ADDRESS_HISTORY", joinColumns = @JoinColumn(name="MEMBER2_ID"))
     private List<Address> addressHistory =new ArrayList<>();
     //Address는 내가 정의한것이라서 ..
 
