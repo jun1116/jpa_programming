@@ -24,10 +24,21 @@ public class Member2 {
     @Column(name = "FOOD_NAME")//String 하나라서 예외적으로 컬럼이름을 만들 수 있어 (String은 값이 하나고, 내가 정의한게 아니라서)
     private Set<String> favoriteFoods = new HashSet<>();
 
-    @ElementCollection
-    @CollectionTable(name="ADDRESS_HISTORY", joinColumns = @JoinColumn(name="MEMBER2_ID"))
-    private List<Address> addressHistory =new ArrayList<>();
-    //Address는 내가 정의한것이라서 ..
+    //    @ElementCollection
+//    @CollectionTable(name="ADDRESS_HISTORY", joinColumns = @JoinColumn(name="MEMBER2_ID"))
+//    private List<Address> addressHistory =new ArrayList<>();
+//    //Address는 내가 정의한것이라서 ..
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name="MEMBER2_ID")
+    private List<AddressEntity> addressHistory = new ArrayList<>();
+
+    public List<AddressEntity> getAddressHistory() {
+        return addressHistory;
+    }
+
+    public void setAddressHistory(List<AddressEntity> addressHistory) {
+        this.addressHistory = addressHistory;
+    }
 
     public Member2() {
     }
@@ -40,13 +51,13 @@ public class Member2 {
         this.favoriteFoods = favoriteFoods;
     }
 
-    public List<Address> getAddressHistory() {
-        return addressHistory;
-    }
-
-    public void setAddressHistory(List<Address> addressHistory) {
-        this.addressHistory = addressHistory;
-    }
+//    public List<Address> getAddressHistory() {
+//        return addressHistory;
+//    }
+//
+//    public void setAddressHistory(List<Address> addressHistory) {
+//        this.addressHistory = addressHistory;
+//    }
 
     public Long getId() {
         return id;
