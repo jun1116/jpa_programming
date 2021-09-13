@@ -29,10 +29,13 @@ public class testMain {
             em.persist(member);
 
             em.flush(); em.clear();
-
-
+            System.out.println("----------------------clear------------");
+            List<Member2> resultList = em.createQuery("select m from Member2 m where m.name like '%KIM%'",Member2.class).getResultList();
+            for (Member2 member2 : resultList) {
+                System.out.println("member2 = " + member2);
+            }
             tx.commit();
-        } catch (Exception e) {
+        } catch (Excºeption e) {
             tx.rollback();
         }finally {
             System.out.println("\n\n---------------------COMMIT------------------");
