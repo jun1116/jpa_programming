@@ -25,26 +25,26 @@ public class JpaMain {
             em.persist(team3);
 
             Member member1 = new Member();
-            member1.setUsername("member1");
+            member1.setUsername("KIM");
             member1.setTeam(team1);
             em.persist(member1);
             Member member2 = new Member();
-            member2.setUsername("member2");
+            member2.setUsername("PARK");
             member2.setTeam(team2);
             em.persist(member2);
 
             em.flush();em.clear();
             System.out.println("\n===================CLEAR===============\n");
-            List<Member> members = em.createQuery("select m from Member m join fetch m.team", Member.class).getResultList();
-            //select * from member
-            //select * from team where team.id = member11.teamid~~
-            for (Member member : members) {
-                System.out.println("member.getUsername() = " + member.getUsername()
-                + "\tteamname = " + member.getTeam().getName());
+            String sql = "SELECT MEMBER_ID,USERNAME,TEAM_ID FROM MEMBER WHERE USERNAME='KIM'";
+            List<Member> resultList = em.createNativeQuery(sql, Member.class).getResultList();
+            for (Member member : resultList) {
+                System.out.println("member = " + member.getUsername());
             }
 
             tx.commit();
         } catch (Exception e) {
+            System.out.println("\n<EXCEPTION>\n");
+            System.out.println("e = " + e);
             tx.rollback();
         }finally {
             System.out.println("\n\n---------------------COMMIT------------------");

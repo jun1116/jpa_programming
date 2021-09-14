@@ -51,4 +51,14 @@ public class Member {
     public void setLocker(Locker locker) {
         this.locker = locker;
     }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", locker=" + locker +
+                ", team=" + team +
+                '}';
+    }
 }
