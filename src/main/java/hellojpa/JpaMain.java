@@ -14,30 +14,34 @@ public class JpaMain {
         tx.begin();
 
         try {
-//            Team team1 = new Team();
-//            team1.setName("team1");
-//            Team team2 = new Team();
-//            team2.setName("team2");
-//            Team team3 = new Team();
-//            team3.setName("team3");
-//
-//            em.persist(team1);
-//            em.persist(team2);
-//            em.persist(team3);
-//            Member member1 = new Member();
-//            member1.setUsername("member1");
-//            member1.setTeam(team1);
-//            em.persist(member1);
-//            Member member2 = new Member();
-//            member2.setUsername("member2");
-//            member2.setTeam(team2);
-//            em.persist(member2);
-//
-//            em.flush();em.clear();
-//            List<Member> members = em.createQuery("select m from Member m join fetch m.team", Member.class).getResultList();
-//            //select * from member
-//            //select * from team where team.id = member11.teamid~~
-//            System.out.println("members = " + members);
+            Team team1 = new Team();
+            team1.setName("team1");
+            Team team2 = new Team();
+            team2.setName("team2");
+            Team team3 = new Team();
+            team3.setName("team3");
+            em.persist(team1);
+            em.persist(team2);
+            em.persist(team3);
+
+            Member member1 = new Member();
+            member1.setUsername("member1");
+            member1.setTeam(team1);
+            em.persist(member1);
+            Member member2 = new Member();
+            member2.setUsername("member2");
+            member2.setTeam(team2);
+            em.persist(member2);
+
+            em.flush();em.clear();
+            System.out.println("\n===================CLEAR===============\n");
+            List<Member> members = em.createQuery("select m from Member m join fetch m.team", Member.class).getResultList();
+            //select * from member
+            //select * from team where team.id = member11.teamid~~
+            for (Member member : members) {
+                System.out.println("member.getUsername() = " + member.getUsername()
+                + "\tteamname = " + member.getTeam().getName());
+            }
 
             tx.commit();
         } catch (Exception e) {

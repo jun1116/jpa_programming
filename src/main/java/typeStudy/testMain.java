@@ -33,19 +33,6 @@ public class testMain {
 
             em.flush(); em.clear();
             System.out.println("----------------------clear------------");
-            //Criteria 사용준비
-            CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaQuery<Member2> query = cb.createQuery(Member2.class);
-            //루트클래스 (조회를 시작할 클래스)
-            Root<Member2> m = query.from(Member2.class);
-
-            //쿼리생성
-            CriteriaQuery<Member2> cq = query.select(m).where(cb.equal(m.get("name"), "KIM"));
-            List<Member2> resultList = em.createQuery(cq).getResultList();
-            System.out.println("\nresultList = " + resultList);
-            for (Member2 member2 : resultList) {
-                System.out.println("member2 = " + member2.getName());
-            }
 
 
             tx.commit();
